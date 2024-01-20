@@ -1,0 +1,46 @@
+provider "aws" {
+  region = "ap-south-2"
+  access_key = "AKIAULSTDLHO7HUE4A5Z"
+  secret_key = "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"
+  
+}
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+
+
+    }
+  }
+}
+
+resource "aws_s3_bucket" "S3_bucket02" {
+  bucket = "my-tf-test-bucket02"
+  acl = "private"
+
+  tags = {
+    Name        = "My test bucket02"
+    Environment = "AWS/ADO"
+  }
+  versioning {
+    enabled = true
+  }
+}
+
+resource "aws_s3_bucket_object" "file" {
+  bucket = "my-tf-test-bucket02"
+  key    = "hello.txt"
+  source = "hello.txt"
+
+
+}
+
+resource "aws_s3_bucket_object" "jpg" {
+  bucket = "my-tf-test-bucket02"
+  key    = "beach.jpg"
+  source = "beach.jpg"
+
+
+}
